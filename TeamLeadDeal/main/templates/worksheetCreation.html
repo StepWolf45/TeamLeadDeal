@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Создать анкету</title>
+    <link rel="stylesheet" href="{% static 'style/bootstrap2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'style/worksheetCreation.css' %}">
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@900&display=swap');
+
+    body {
+        font-family: 'Jost';
+        background-color: #1B2925;
+
+    }
+    h1 {
+        position: relative;
+        color: #fff;
+        font-size: 40px;
+        font-weight: 700;
+        transition: 0.5s;
+        margin: 10px;
+        letter-spacing: 6px;
+    }
+    .form-check-input:checked{
+        background-color: rgb(64, 101, 86);
+        border-color: #1B2925;
+    }
+    .form-check-input:focus{
+        border-color: rgb(64, 101, 86);
+        outline-width:5px;
+        outline-color: rgba(64, 101, 86, 0.4);
+        outline-style: solid;
+    }
+    .sec{
+        border: 30px solid #D16C23;
+        border-radius: 40px;
+    }
+    .btn {
+        padding: 4px 15px;
+        margin-bottom: 8px;
+        background-color: #D16C23;
+        color: #fff;
+        font-family: 'Jost';
+        font-size: 1.05rem;
+        border: #2C2C2C solid 8px;
+        border-radius: 15px;
+        transition: .4s;
+    }
+
+    .btn:hover {
+        box-shadow: inset 200px 0 0 0 #fff;
+        color: #2C2C2C;
+        border: #406556 solid 8px;
+        background-color: #D16C23;
+    }
+
+    .btn:active {
+        color: #2C2C2C;
+        background-color: #D16C23;
+        border-color: #2C2C2C ;
+    }
+    .form-control{
+        z-index: 3;
+        border-width: 8px;
+        border-color: #687E8D;
+        border-radius: 15px;
+    }
+    .form-control:focus{
+        background-color: #fff;
+        border: #406556 solid 8px;
+    }
+    .form-floating::before{
+        z-index: 1;
+        background-color: rgba(1, 1, 1, 0) !important;
+    }
+</style>
+<body>
+<header>
+    {% include 'menu.html' %}
+</header>
+<br>
+<main>
+    <h1 class="d-flex justify-content-center">Создание анкеты</h1>
+    <section class="d-flex justify-content-center p-3 m-2 ">
+        <section class="p-4 m-2 sec bg-white">
+            <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-floating mb-3">
+                {{form.title}}
+                <label for="{{form.title.id_for_label}}">Заголовок</label>
+            </div>
+                <br>
+                <div class="mb-3">
+              <label for="formFile" class="form-label">Картинка анкеты</label>
+                  <input class="form-control" type="file" id="formFile" name="{{form.image.html_name}}">
+            </div>
+                <br>
+                <div class="form-check check">
+                    <h3>Теги:</h3>
+                    {% for field in form.tags %}
+                  <label class="form-check-label check" for="{{field.id_for_label}}">
+                      {{field}}
+                  </label>
+                <br>
+                {% endfor %}
+                </div>
+                <br>
+            <div class="form-floating">
+                {{form.description}}
+                <label for="{{form.description.id_for_label}}">Описание</label>
+            </div>
+            <br>
+            <input class="btn btn-primary" id="submit" type="submit" value="Создать анкету">
+                <div class="trouble"></div>
+                <!--{% if not form.title %}
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Заголовок модального окна</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                      </div>
+                      <div class="modal-body">
+                        ...
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                        <button type="button" class="btn btn-primary">Сохранить изменения</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% endif %}-->
+        </form>
+        </section>
+    </section>
+</main>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<!--<script>
+    function scr() {
+   alert("document.getElementsByTagName("input")[0].value");
+   alert("1");
+}
+    //document.getElementsByTagName("input")[0].value
+</script>-->
+
+<script>
+    document.querySelector('#submit').onclick = function()
+    {
+        //alert(document.getElementsByTagName("input")[2].value);
+        if (document.getElementsByTagName("input")[2].value.indexOf('.jpg') == -1) || (document.getElementsByTagName("input")[2].value.indexOf('.png') || (document.getElementsByTagName("input")[2].value.indexOf('.jpeg')
+        {
+            alert('Неверный формат файла');
+            document.querySelector('.trouble').innerHTML = '<div class="modal-dialog modal-sm">Неверный формат файла</div>';
+            //document.querySelector('.trouble').innerHTML = 'heelo';
+        }
+        //else if (document.getElementsByTagName("input")[2].value.indexOf('.txt')
+        //{
+         //   return 1;
+        //}
+    }
+</script>
+</body>
+</html>

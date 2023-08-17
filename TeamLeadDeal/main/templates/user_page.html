@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{profile.first_name}} {{profile.last_name}}</title>
+    <link rel="stylesheet" href="{% static 'style/bootstrap.min.css' %}">
+</head>
+<body>
+    <header class="fixed-top">
+        {% include 'menu.html' %}
+    </header>
+    <br><br><br>
+    <main>
+        <section class="d-flex justify-content-center">
+            <section class="row col-8 bg-body-secondary">
+            <div class="col-md-4 mb-md-0 p-md-4">
+                <img class="img-fluid" src="{{profile.avatar.url}}" alt="">
+            </div>
+            <section class="col-md-6 p-4 ps-md-0">
+                <div class="d-flex justify-content-between">
+                    <h2 class="mt-0">{{profile.first_name}} {{profile.last_name}}</h2>
+                    {% include 'social_media.html' %}
+                </div>
+                <h6>@{{profile.user.username}}</h6>
+                {% for tag in profile.tags.all %}
+                <span class="badge" style="background-color: {{tag.color}}">{{tag}}</span>
+                {% endfor %}
+                <hr>
+                <p>Bio: {{profile.bio}}</p>
+                <p>Work: {{profile.work}}</p>
+                <p>Stage: {{profile.stage}}</p>
+                <a class="btn btn-primary" href="/id{{profile.pk}}/chat">Написать</a>
+            </section>
+                <hr>
+                    <section>
+                      <div class="col-md-6 mb-md-0 p-md-4">
+                            <h2>Анкеты пользователя @{{profile.user.username}}:</h2>
+                      </div>
+                        <section>
+                            {% if not worksheets %}
+                                <h2 class="d-flex justify-content-center">Пока здесь ничего нет!</h2>
+                            {% endif %}
+                            {% for worksheet in worksheets %}
+                            <div class="d-flex position-relative p-3 border border-3">
+                              <img src="{{worksheet.image.url}}" class="col-3 m-2" alt="...">
+                              <div class="m-3">
+                                <h5 class="mt-0">{{worksheet.title}}</h5>
+                                  <section>
+                                      {% for tag in worksheet.tags.all %}
+                                        <span class="badge" style="background-color: {{tag.color}}">{{tag}}</span>
+                                      {% endfor %}
+                                  </section>
+                                  <hr>
+                                  <p>
+                                      {{worksheet.description}}
+                                  </p>
+                                <a href="/worksheet{{worksheet.pk}}" class="btn btn-primary">Go!</a>
+                              </div>
+                            </div>
+                            <br>
+                            {% endfor %}
+                        </section>
+                    </section>
+            </section>
+        </section>
+    </main>
+</body>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</html>

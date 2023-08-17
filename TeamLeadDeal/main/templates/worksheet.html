@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{worksheet.title}}</title>
+    <link rel="stylesheet" href="{% static 'style/bootstrap.min.css' %}">
+</head>
+<body>
+{{worksheet.title}}
+<a href="/id{{worksheet.author.pk}}/">{{worksheet.author}}</a>
+<hr>
+{% for tag in worksheet.tags.all %}
+    {{tag}}
+{% endfor %}
+<br>
+<img src="{{worksheet.image.url}}" alt="">
+<br>
+{{worksheet.description}}
+<br>
+{{worksheet.date}}
+<div class="ya-share2"
+     data-curtain
+     data-shape="round"
+     data-url="/worksheet{{worksheet.pk}}"
+     data-title="{{worksheet.title}}"
+     data-services="vkontakte,telegram,whatsapp"></div>
+{% if user == worksheet.author.user %}
+<a href="/worksheet{{worksheet.id}}/edit/">Редактировать</a>
+{% endif %}
+<form method="POST">
+    {% csrf_token %}
+    {% if not like_checked %}
+    <input class="btn btn-primary" type="submit" name="like" value="Like">
+    {% else %}
+    <input class="btn btn-secondary" type="submit" name="like" value="Liked">
+    {% endif %}
+
+    {% if not dislike_checked %}
+    <input class="btn btn-primary" type="submit" name="dislike" value="Dislike">
+    {% else %}
+    <input class="btn btn-secondary" type="submit" name="dislike" value="Disliked">
+    {% endif %}
+</form>
+<br>
+<a href="/">Домой</a>
+</body>
+<script src="https://yastatic.net/share2/share.js"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+</html>

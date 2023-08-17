@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+ul{
+   margin:0px;
+   padding:0px;
+
+}
+
+li{
+
+    display:inline-block;
+    color:white;
+    margin:17px 40px 17px 40px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+header{
+
+    background-color: #1B2925;
+    position: fixed;
+    left:0px;
+    top:0px;
+    margin:auto;
+    width: 100%;
+}
+
+h1{
+    font-size:91px;
+    font-family: 'Montserrat', sans-serif;
+    color:#ffffff;
+    margin:0px;
+    font-weight: 400;
+
+}
+
+h2{
+    font-size:70px;
+    font-family: 'Montserrat', sans-serif;
+     color:white;
+    font-weight: 800;
+}
+
+.f{
+    background-image:url("fon.svg");
+    background-size:contain;
+    height:480px;
+    padding: 220px 60px 60px 110px;
+    background-attachment: fixed;
+    color:#ffffff;
+
+}
+body{
+
+    margin:0px;
+}
+h3{
+     font-family: 'Montserrat', sans-serif;
+
+
+}
+p{
+
+     font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+}
+
+.h{
+    padding:100px 100px 100px 130px;
+    background-color:#1B2925;
+    color:white;
+    display: table;
+	width: 100%;
+
+
+}
+.h p{
+    font-size: 17px;
+
+}
+
+.k{
+   padding:60px 90px 120px 120px ;
+   background-color:#ffffff;
+   margin-bottom: 130px;;
+
+
+}
+
+.p{
+    height:220px;
+    width: 250px;
+    margin: 25px;
+
+}
+.p:hover{
+    height:250px;
+    width: 280px;
+    transition: 0.5s;
+
+}
+.o{
+   height:220px;
+    width: 250px;
+    margin: 25px;
+
+}
+.o:hover{
+    height:250px;
+    width: 280px;
+    transition: 0.5s;
+
+}
+
+.l{
+
+   height:220px;
+    width: 250px;
+    margin: 25px;
+}
+.l:hover{
+     height:250px;
+    width: 280px;
+    transition: 0.5s;
+
+}
+.q{
+    background-image:url("prog.png");
+    background-size:cover;
+    background-repeat: no-repeat;
+    color: black;
+    font-size: large;
+    font: weight 190px;
+    padding: 170px  120px  120px 200px;
+    height:500px;
+    background-position: center;
+    background-attachment: fixed;
+
+
+}
+
+footer{
+
+    color: white;
+    background-color: #1B2925;
+    margin:0px;
+    padding: 10px;
+}
+
+a{
+
+    text-decoration: none;
+    color:white;
+}
+.col-wrapper{width:1000px; margin:0 auto;margin-top: 30px;}
+.col{margin:0 10px; float:left; display:inline;}
+.col-670{width:300px;}
+.col-250{width:600px;}

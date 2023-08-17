@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Изменить анкету</title>
+    <link rel="stylesheet" href="{% static 'style/bootstrap.min.css' %}">
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@900&display=swap');
+
+    body {
+        font-family: 'Jost';
+        background-color: #2C2C2C;
+    }
+    h1 {
+        position: relative;
+        color: #fff;
+        font-size: 40px;
+        font-weight: 700;
+        transition: 0.5s;
+        margin: 10px;
+        letter-spacing: 6px;
+    }
+    .form-check-input:checked{
+        background-color: rgb(64, 101, 86);
+        border-color: #1B2925;
+    }
+    .form-check-input:focus{
+        border-color: rgb(64, 101, 86);
+        outline-width:5px;
+        outline-color: rgba(64, 101, 86, 0.4);
+        outline-style: solid;
+    }
+    .sec{
+        border: 30px solid #D16C23;
+        border-radius: 40px;
+        background-color: #fff;
+    }
+    .btn {
+        padding: 4px 15px;
+        margin-bottom: 8px;
+        background-color: #D16C23;
+        color: #fff;
+        font-family: 'Jost';
+        font-size: 1.05rem;
+        border: #2C2C2C solid 8px;
+        border-radius: 15px;
+        transition: .4s;
+    }
+    .reset{
+        background-color: #D16C23;
+    }
+    .set{
+        background-color: #406556;
+    }
+    .delete{
+        background-color: #7F0014;
+    }
+    .btn:hover {
+        box-shadow: inset 200px 0 0 0 #fff;
+        color: #2C2C2C;
+        border: #406556 solid 8px;
+        background-color: #D16C23;
+    }
+
+    .btn:active {
+        color: #2C2C2C;
+        background-color: #D16C23;
+        border-color: #2C2C2C ;
+    }
+    .form-control{
+        z-index: 3;
+        border-width: 8px;
+        border-color: #687E8D;
+        border-radius: 15px;
+    }
+    .form-control:focus{
+        background-color: #fff;
+        border: #406556 solid 8px;
+    }
+    .form-floating::before{
+        z-index: 1;
+        background-color: rgba(1, 1, 1, 0) !important;
+    }
+</style>
+<body>
+<header>
+    {% include 'menu.html' %}
+</header>
+<br>
+<main>
+    <h1 class="d-flex justify-content-center">Edit Worksheet</h1>
+    <section class="d-flex justify-content-center p-3 m-2">
+        <section class="sec p-3 m-2">
+            <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-floating mb-3">
+                {{form.title}}
+                <label for="{{form.title.id_for_label}}">Title</label>
+            </div>
+                <br>
+              <div class="mb-3">
+              <label for="formFile" class="form-label">Worksheet image</label>
+                  <input class="form-control" type="file" id="formFile" name="{{form.image.html_name}}">
+                    <br>
+                  <input class="btn btn-secondary reset" type="submit" value="Сбросить" name="drop">
+            </div>
+                <div class="form-check">
+                    <h3>Tags:</h3>
+                    {% for field in form.tags %}
+                  <label class="form-check-label" for="{{field.id_for_label}}">
+                      {{field}}
+                  </label>
+                <br>
+                {% endfor %}
+                </div>
+                <br>
+            <div class="form-floating">
+                {{form.description}}
+                <label class="" for="floatingTextArea">Description</label>
+            </div>
+            <br>
+            <input class="btn btn-primary" name="apply" type="submit" value="Сохранить изменения">
+            <input class="btn btn-danger" type="submit" name="delete" value="Удалить">
+        </form>
+        </section>
+    </section>
+</main>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

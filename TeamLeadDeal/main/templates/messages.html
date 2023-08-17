@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Ваши контакты</title>
+    <link rel="stylesheet" href="{% static 'style/bootstrap2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'style/messages.css' %}">
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@900&display=swap');
+
+    body {
+        font-family: 'Jost';
+        background-color: #1B2925;
+    }
+    .col-6{
+        border: solid #D16C23 26px !important;
+        border-radius: 32px;
+        background-color: white !important;
+    } 
+    .btn{
+        padding: 4px 15px;
+    background-color: #416556;
+    color: #fff;
+    font-family: 'Jost';
+    font-size: 1.05rem;
+    border: #2C2C2C solid 8px;
+    border-radius: 15px;
+    transition: .4s;
+  }
+  .btn:hover {
+    box-shadow: inset 200px 0 0 0 #fff;
+    color: #2C2C2C;
+    border: #406556 solid 8px;
+    background-color: #D16C23;
+  }
+
+  .btn:active {
+    color: #2C2C2C;
+    box-shadow: inset 200px 0 0 0 #EF9328 !important;
+    border-color: #2C2C2C !important;
+  }
+  .profile{
+    text-decoration: none;
+    color:#1B2925;
+  }
+  h5{
+    font-weight: 600;
+    margin-top: 8px !important;
+  }
+</style>
+<body>
+<header class="fixed-top">
+    {% include 'menu.html' %}
+</header>
+<br><br><br>
+<main>
+    <section>
+       <h2 class="d-flex justify-content-center">Мои контакты</h2>
+    {% for contact in contacts %}
+    <div class="d-flex justify-content-center">
+        <div class="d-flex col-6 p-2 position-relative border border-3 bg-body-secondary">
+            <img src="{{contact.avatar.url}}" class="w-50 position-relative me-3" alt="...">
+            <div>
+                <a class='profile' href="/id{{contact.pk}}">
+                    <h5>
+                        {{contact.last_name}} {{contact.first_name}}
+                    </h5>
+                </a>
+                {% for tag in contact.tags.all %}
+                    <span class="badge" style="background-color: {{tag.color}}">{{tag}}</span>
+                {% endfor %}
+                <hr>
+                <p>
+                    Work: {{contact.work}}
+                </p>
+                <p>
+                    Bio: {{contact.bio}}
+                </p>
+                <p>
+                    Stage: {{contact.stage}}
+                </p>
+                <hr>
+                <a href="/id{{contact.pk}}/chat" class="btn btn-primary">Написать</a>
+            </div>
+        </div>
+    </div>
+    </section>
+</main>
+    <br>
+    {% endfor %}
+    {% if empty %}
+        <h1>Тут пусто!</h1>
+    {% endif %}
+    <br>
+</body>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</html>

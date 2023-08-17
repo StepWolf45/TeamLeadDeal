@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'style/profile2.css' %}">
+    <link rel="stylesheet" href="{% static 'style/bootstrap2.min.css' %}">
+    <title>{{first_name}} {{last_name}}</title>
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@900&display=swap');
+
+    body {
+        font-family: 'Jost';
+        background-color: #1B2925;
+        font-weight: 600;
+    }
+
+    #card {
+        border: 30px solid #D16C23;
+        align-items: center;
+        border-top-left-radius: 50px !important;
+        border-bottom-right-radius: 50px !important;
+        margin-bottom: 30px;
+    }
+
+    a {
+        text-decoration: none;
+        color: #406556;
+        font-size: 20px;
+        transition: 0.5s;
+    }
+    a:hover{
+        color: #D16C23;
+    }
+    .sheet{
+        border: 5px solid #687E8D !important;
+        border-radius: 16px;
+        align-items: center;
+    }
+    .btn1, .btn2{
+        color: #fff;
+        font-family: 'Jost';
+        font-size: .875rem;
+        border: #1B2925 solid 6px;
+        border-radius: 10px;
+        transition: .4s;
+    }
+    .btn1{
+        background-color: #D16C23;
+    }
+    .btn2{
+        background-color: #406556;
+    }
+    .btn1:hover, .btn2:hover {
+        box-shadow: inset 200px 0 0 0 #fff;
+        color: #2C2C2C;
+    }
+    .btn1:hover{
+        border: #D16C23 solid 6px;
+    }
+    .btn2:hover{
+        border: #406556 solid 6px;
+    }
+    .btn:active {
+        color: #fff;
+    }
+</style>
+
+<body>
+    <header class="fixed-top">
+        {% include 'menu.html' %}
+    </header>
+    <br><br><br>
+    <main>
+        <section class="d-flex justify-content-center">
+            <section class="row col-8 bg-light" id="card">
+                <div class="col-md-4 mb-md-0 p-md-4">
+                    <img class="img-fluid rounded-4" src="{{avatar.url}}" alt="">
+                </div>
+                <section class="col-md-6 p-4 ps-md-0">
+<<<<<<< HEAD
+                    <div class="d-flex justify-content-between">
+                        <h2 class="mt-0">{{first_name}} {{last_name}}</h2>
+                        {% include 'social_media.html' %}
+                    </div>
+                    <p>Username: @{{username}}<p>
+=======
+                    <h2 class="mt-0">{{first_name}} {{last_name}}</h2>
+                    <p>Имя пользователя: @{{username}}<p>
+>>>>>>> DesignAttempt100
+                    {% for tag in tags %}
+                    <span class="badge" style="background-color: {{tag.color}}">{{tag}}</span>
+                    {% endfor %}
+                    <p>Биография: {{bio}}</p>
+                    <p>Работа: {{work}}</p>
+                    <p>Стаж работы: {{stage}}</p>
+                    <a href="/profile/edit" class="link">Редактировать</a>
+                </section>
+                <hr>
+                <section>
+                    <div class="col-md-6 mb-md-0 p-md-4">
+                        <h1>Ваши анкеты:</h1>
+                    </div>
+                    <section>
+                        {% if not worksheets %}
+                            <h2 class="d-flex justify-content-center">Пока здесь ничего нет!</h2>
+                        {% endif %}
+                        {% for worksheet in worksheets %}
+                        <div class="d-flex position-relative p-3 border border-3 sheet">
+                            <img src="{{worksheet.image.url}}" class="col-3 m-2" alt="...">
+                            <div class="m-3">
+                                <h5 class="mt-0">{{worksheet.title}}</h5>
+                                <section>
+                                    {% for tag in worksheet.tags.all %}
+                                    <span class="badge" style="background-color: #EF9328">{{tag}}</span>
+                                    {% endfor %}
+                                </section>
+                                <p>
+                                    {{worksheet.description}}
+                                </p>
+                                <a href="/worksheet{{worksheet.pk}}" class="btn btn1 btn-primary">Погнали!</a>
+                                <a href="/worksheet{{worksheet.pk}}/edit" class="btn btn2 btn-secondary">Редактировать</a>
+                            </div>
+                        </div>
+                        <br>
+                        {% endfor %}
+                    </section>
+                </section>
+            </section>
+        </section>
+    </main>
+</body>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+</html>

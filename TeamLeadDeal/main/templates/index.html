@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>TeamLeadDeal</title>
+    <link rel="stylesheet" href="{% static 'style/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'style/mainStyle.css' %}">
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@900&display=swap');
+
+    body {
+        font-family: 'Jost';
+        background-color: #1B2925 !important;
+        justify-content: center;
+    }
+
+    header {
+        position: absolute;
+        font-family: 'Jost';
+        text-align: right;
+        background-color: white;
+    }
+
+    header p {
+        display: inline-block;
+        color: #D16C23;
+    }
+
+    header a {
+        margin-right: 15px;
+        text-decoration: none;
+        display: inline-block;
+        color: #D16C23;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+        font-size: 30px;
+        padding: 5px;
+        transition: 0.4s ease-out;
+    }
+
+    a:hover {
+        color: cadetblue;
+    }
+
+    main {
+        display: block;
+        left: 0px;
+        background-color: rgba(1, 1, 1, 0);
+    }
+
+    h1 {
+        width: auto;
+        font-size: 50px;
+        text-align: center;
+        margin: 0;
+    }
+
+    h2 {
+        text-decoration: none;
+        font-size: 35px;
+        margin-block-end: 0px;
+        margin-bottom: 10px;
+    }
+
+    .description_text {
+        font-size: 20px;
+    }
+
+    .description_tags {
+        font-size: 14px;
+    }
+
+    .test_offer {
+        border: solid #D16C23 16px;
+        display: inline-block;
+        background-color: white;
+        border-radius: 20px;
+        margin: 30px;
+        padding: 15px;
+        line-height: 0.3;
+        width: 420px;
+    }
+
+    .description {
+        line-height: 1;
+    }
+
+    .dropdown-item {
+        font-size: medium !important;
+    }
+
+    ul.show {
+        top: 0% !important;
+        left: 100% !important;
+    }
+
+    form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #id_tags_search_field {
+        display: flex;
+    }
+
+    #grid {
+        position: inherit;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .offer_list {
+
+        display: flex;
+        position: relative;
+        align-content: center;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .horizontal {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    #offers {
+        top: 5px;
+        margin-left: 48%;
+        text-decoration: none;
+        display: inline-block;
+        color: #D16C23;
+        position: absolute;
+        z-index: 3;
+        font-size: 45px;
+    }
+
+    .tag {
+        margin-right: 8px;
+        line-height: 1;
+    }
+
+    .bi-info-circle {
+        z-index: 3;
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        color: #fff2d4;
+    }
+
+    .info {
+        opacity: 0;
+        z-index: 2;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        top: -100%;
+        background: #fff2d4;
+        box-shadow: 0 3px 10px 5px #00000025;
+        backdrop-filter: blur(5px);
+        width: 270px;
+        height: 0px;
+    }
+
+    .greeninfo {
+        background: #e9ffd4;
+    }
+
+    .badge {
+        display: inline;
+        background-color: #EF9328;
+        outline: 2px solid #4e4e4e44;
+        box-shadow: 0px 0px 5px 2px #130e4847;
+    }
+
+    .greenbadge {
+        background-color: #406556;
+    }
+
+    .card-img-top {
+        z-index: 1;
+        position: relative;
+        border: solid #687E8D 6px;
+        background-color: #fff;
+        object-fit: cover;
+        width: 200px !important;
+        height: 200px;
+        border-top-left-radius: 32px !important;
+        border-bottom-right-radius: 32px !important;
+    }
+
+    .yellow {
+        border-color: rgb(27, 41, 37);
+    }
+
+    .yellow::before {
+        background-color: rgba(181, 71, 12, 1) !important;
+    }
+
+    .img::before {
+        transition: 0.9s ease-out;
+        content: "";
+        z-index: 0;
+        position: absolute;
+        display: inline-block;
+        box-sizing: border-box;
+        width: 270px;
+        height: 230px;
+        left: 0px;
+        top: 0px;
+        background-color: rgba(181, 71, 12, 1);
+        backdrop-filter: blur(5px);
+    }
+
+    .block {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .author_info {
+        display: inline-block;
+    }
+
+    .offer_title {
+        display: inline-flex;
+    }
+
+    .ya-share2 {
+        display: inline-block;
+    }
+
+    .ya-share2__item {
+        margin: 0px !important;
+    }
+
+    .ya-share2__list {
+        margin: 0px !important;
+    }
+
+    .ya-share2__badge {
+        height: 24px;
+        width: 24px;
+        transition: .4s cubic-bezier(.72, -0.95, .34, 1.74);
+        border: none;
+    }
+
+    .ya-share2__icon:hover {
+        background-color: #EF9328;
+
+    }
+
+    .green-icon:hover {
+        background-color: rgb(64, 101, 86);
+    }
+
+    .ya-share2__badge:hover {
+        box-shadow: 0 0 0 6px #bfccc8ba !important;
+        backdrop-filter: blur(5px);
+    }
+
+    .ya-share2__icon {
+        transition: .4s;
+        background-color: #687E8D;
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        flex-wrap: nowrap;
+        align-items: baseline;
+    }
+
+    .card {
+        display: flex;
+        align-items: center;
+        outline: 2px solid #ffffff44;
+        border: #D16C23 6px solid;
+        border-bottom-left-radius: 38px !important;
+        border-top-right-radius: 38px !important;
+        overflow: hidden;
+        background: linear-gradient(0deg, rgba(9, 17, 14, 0.3) 0%, rgba(132, 149, 144, 0.5) 100%);
+        box-shadow: 0 7px 20px 5px #00000088;
+        backdrop-filter: blur(10px);
+        color: rgba(252, 255, 250, .8);
+        transition: .5s all;
+    }
+
+    .appear {
+        animation-duration: 1.4s;
+        animation-delay: 0.4s;
+        animation-iteration-count: 1;
+        animation-name: appearance;
+        animation-timing-function: ease-in-out;
+        transform-origin: top left;
+    }
+
+    @keyframes appearance {
+        25% {
+            transform: rotate(4deg);
+        }
+
+        50% {
+            transform: rotate(-1deg);
+        }
+
+        75% {
+            transform: rotate(2deg);
+        }
+
+        100% {
+            transform: rotate(0deg);
+        }
+    }
+
+    .card::before {
+        position: fixed;
+        content: "";
+        box-shadow: 0 0 100px 40px #ffffff08;
+        top: -10%;
+        left: -100%;
+        transform: rotate(-45deg);
+        height: 60rem;
+        transition: .7s all;
+    }
+
+    .card:hover {
+        box-shadow: 0 7px 50px 10px #000000aa;
+        filter: brightness(1.05);
+    }
+
+    .card:hover::before {
+        filter: brightness(3);
+        top: -100%;
+        left: 200%;
+    }
+
+    .green {
+        border-color: #406556;
+    }
+
+    .bottom-section {
+        display: flex;
+    }
+
+    .likes {
+        margin-top: 2px;
+        margin-left: 10px;
+    }
+
+    .date {
+        color: rgba(139, 163, 178, 0.7);
+    }
+
+    .card-title {
+        font-weight: 700;
+        max-width: 200px;
+        text-align: center;
+    }
+
+    .btn {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 6px;
+        padding: 4px 15px;
+        background-color: #D16C23;
+        color: #fff;
+        font-family: 'Jost';
+        font-size: 0.95rem;
+        border: 4px #bfccc8ba solid;
+        outline: 2px solid #ffffff44;
+        border-radius: 15px;
+        transition: .4s;
+        box-shadow: inset 0 0 10px 3px #00000015;
+    }
+
+    .btn-yellow {
+        background-color: #EF9328;
+    }
+
+    .btn:hover {
+        box-shadow: inset 200px 0 0 0 #fff, 0 0 10px 4px #00000035;
+        transform: scale(1.05);
+        color: #2C2C2C;
+        border: #406556 solid 4px;
+        background-color: #D16C23;
+    }
+
+    .btn:active {
+        color: #2C2C2C;
+        background-color: #D16C23;
+        border-color: #2C2C2C;
+    }
+
+    .form-check-input:checked {
+        background-color: rgb(64, 101, 86);
+        border-color: #1B2925;
+    }
+
+    .form-check-input:focus {
+        border-color: rgb(64, 101, 86);
+        outline-width: 5px;
+        outline-color: rgba(64, 101, 86, 0.4);
+        outline-style: solid;
+    }
+
+    .accordion {
+        z-index: 5;
+        position: relative;
+        margin-top: -52px;
+        margin-bottom: 40px;
+        border-bottom-right-radius: 12px !important;
+    }
+
+    .accordion-item {
+        border-bottom-left-radius: 12px !important;
+        border-bottom-right-radius: 12px !important;
+        width: 300px;
+    }
+
+    .accordion-button:focus {
+        box-shadow: none;
+    }
+
+    .accordion-body {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .accordion-button {
+        color: #2C2C2C;
+        border-bottom-right-radius: 16px !important;
+    }
+
+    .offer {
+        background-color: #fff2d4;
+        opacity: 0%;
+    }
+
+
+
+    .paper {
+        position: relative;
+        margin-left: 10px;
+        margin-top: 18px;
+    }
+
+    .pin {
+        --pin-color: #406556;
+        --pin-dark: #447860;
+        --pin-light: #355756;
+
+        z-index: 5;
+        position: absolute;
+        left: 0px;
+        top: -29px;
+        width: 10px;
+        height: 20px;
+        transition: transform .3s;
+        transform: scale(1);
+
+    }
+
+    .metal {
+        position: absolute;
+        width: 5px;
+        height: 20px;
+        background: linear-gradient(to left, #808080, 40%, #eae8e8, 50%, #808080);
+        border-radius: 0 0 30% 30%;
+        transform: rotate(-50deg);
+        transform-origin: bottom left;
+        top: 15px;
+        border-bottom: 1px solid #808080;
+    }
+
+    .bottom-circle {
+        position: absolute;
+        right: 10px;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background-color: var(--pin-color);
+        background: radial-gradient(circle at bottom left,
+                var(--pin-light),
+                25%,
+                var(--pin-dark),
+                90%,
+                var(--pin-color));
+    }
+
+    /* Barrel */
+    .bottom-circle::before {
+        content: "";
+        position: absolute;
+        top: -18px;
+        left: 10px;
+        width: 20px;
+        height: 30px;
+        transform: rotate(-55deg);
+        transform-origin: 100% 100%;
+        border-radius: 0 0 40% 40%;
+        background: linear-gradient(to left,
+                var(--pin-dark),
+                30%,
+                var(--pin-color),
+                90%,
+                var(--pin-light));
+    }
+
+    /* Top circle */
+    .bottom-circle::after {
+        content: "";
+        position: absolute;
+        right: 20px;
+        top: -5px;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: radial-gradient(circle at left,
+                var(--pin-light),
+                30%,
+                var(--pin-color),
+                var(--pin-dark) 80%);
+    }
+</style>
+
+<body>
+
+    <header class="fixed-top">
+        {% include 'menu.html' %}
+    </header>
+    <br>
+    <br>
+    <main>
+        <h1 class="offer">aaaaa</h1>
+        <div class="accordion accordion-flush col-3" id="accordionFlushExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        Сортировка
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <form>
+                            <div class="form-check">
+                                {% for field in search_form.tags_search_field %}
+                                <label class="form-check-label" for="{{field.id_for_label}}">
+                                    {{field}}
+                                </label>
+                                <br>
+                                {% endfor %}
+                                <br>
+                                <div class="d-flex">
+                                    <input class="btn btn-primary m-1" type="submit" value="Сортировать">
+                                    <input class="btn btn-secondary m-1" type="submit" name="drop" value="Сбросить">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="d-flex flex-wrap grid gap-3 justify-content-center">
+            {% for worksheet in worksheets %}
+            <section class="paper">
+                <div class="pin">
+                    <div class="metal"></div>
+                    <div class="bottom-circle"></div>
+                </div>
+                <section class="card p-3 g-col-6">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-info-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                        <path
+                            d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                    </svg>
+                    <section class="info">
+                        {% for tag in worksheet.tags.all %}
+                        <span class="badge">{{tag}}</span>
+                        {% endfor %}
+                    </section>
+                    <section class="img">
+                        <img class="card-img-top" src="{{worksheet.image.url}}" alt="">
+                    </section>
+                    <section class="mainpart">
+                        <section class="card-body">
+                            <p class="date"> {{worksheet.date}}</p>
+                            <section class='likes'>
+                                <p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
+                                    </svg>
+                                    {{worksheet.likes}}
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                        <path
+                                            d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                                    </svg>
+                                    {{worksheet.dislikes}}
+                                </p>
+                            </section>
+                        </section>
+                    </section>
+                    <h5 class="card-title">{{worksheet.title}}</h5>
+                    <section class="bottom-section">
+                        <div class="ya-share2" data-curtain data-shape="round" data-url="/worksheet{{worksheet.pk}}"
+                            data-title="{{worksheet.title}}" data-services="vkontakte,telegram,whatsapp">
+                        </div>
+                        <a class="btn btn-primary" href="/worksheet{{worksheet.id}}">Посмотреть</a>
+                    </section>
+                </section>
+            </section>
+            {% endfor %}
+        </section>
+    </main>
+
+</body>
+<script>
+    $('.paper').on('mouseenter', function () {
+        let i = $(".paper").index(this);
+        $(".pin:eq(" + i + ")").animate(
+            {
+                left: "-5px",
+                top: "-34px",
+
+            },
+            300, "easeOutCubic"
+        )
+        let scale = 1.2;
+        $(".pin:eq(" + i + ")").css("transform", "scale(" + scale + ")")
+    })
+    $('.paper').on('mouseleave', function () {
+        let i = $(".paper").index(this);
+        $(".pin:eq(" + i + ")").animate(
+            {
+                left: "0px",
+                top: "-29px",
+                transform: "rotate(1.5deg)"
+            },
+            300, "easeOutCubic"
+        )
+        let scale = 1;
+        $(".pin:eq(" + i + ")").css("transform", "scale(" + scale + ")");
+    })
+
+
+    $('.bi-info-circle').on('mouseenter', function () {
+        let i = $(".bi-info-circle").index(this);
+        $(".info:eq(" + i + ")").animate(
+            {
+                top: "0%",
+                opacity: "1",
+            },
+            100, "easeOutCirc"
+        )
+
+        $(".info:eq(" + i + ")").animate(
+            {
+                height: "230px",
+            },
+            360, "easeOutCirc"
+        )
+
+        $(".bi-info-circle:eq(" + i + ")").animate(
+            {
+                color: "#1B2925",
+            },
+            400, "easeOutCirc"
+        )
+        $(".pin:eq(" + i + ")").animate(
+            {
+                left: "-5px",
+                top: "-31px",
+
+            },
+            300, "easeOutCubic"
+        )
+        let scale = 1.2;
+        $(".pin:eq(" + i + ")").css("transform", "scale(" + scale + ")")
+    })
+    $('.bi-info-circle').on('mouseleave', function () {
+        let i = $(".bi-info-circle").index(this);
+        $(".info:eq(" + i + ")").animate(
+            {
+                top: "-230px",
+                opacity: "0",
+            },
+            300, "easeOutCirc"
+        )
+
+        $(".info:eq(" + i + ")").animate(
+            {
+                height: "0",
+            },
+            500, "easeOutCirc"
+        )
+
+        $(".bi-info-circle:eq(" + i + ")").animate(
+            {
+                color: "#fff2d4",
+            },
+            400, "easeOutCirc"
+        )
+        $(".pin:eq(" + i + ")").animate(
+            {
+                left: "0px",
+                top: "-24px",
+                transform: "rotate(1.5deg)"
+            },
+            300, "easeOutCubic"
+        )
+        let scale = 1;
+        $(".pin:eq(" + i + ")").css("transform", "scale(" + scale + ")");
+    })
+
+
+    $('.bi-info-circle').on('load', function () {
+        let wh = $(".bi-info-circle").index(this);
+        if (wh % 2 == 1) {
+            $(".img:eq(" + wh + ")").addClass("yellow");
+            $(".card:eq(" + wh + ")").addClass("green");
+            $(".card-img-top:eq(" + wh + ")").addClass("yellow");
+            $(".ya-share2__list:eq(" + wh + ") > .ya-share2__item > .ya-share2__link > .ya-share2__badge").addClass("green-bagge");
+            $(".ya-share2__list:eq(" + wh + ") > .ya-share2__item > .ya-share2__link > .ya-share2__badge > .ya-share2__icon").addClass("green-icon");
+        }
+        else {
+            $(".info:eq(" + wh + ")").addClass("greeninfo");
+            $(".btn:eq(" + wh + ")").addClass("btn-yellow");
+            $("section.info:eq(" + wh + ") > span").addClass("greenbadge");
+            $(".ya-share2__list:eq(" + wh + ") > .ya-share2__item > .ya-share2__link > .ya-share2__badge").addClass("yellow-bagge");
+        }
+        $(".card").addClass("appear");
+    })
+</script>
+<script src="https://yastatic.net/share2/share.js"></script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+</html>

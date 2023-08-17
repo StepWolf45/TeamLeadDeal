@@ -1,0 +1,66 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<<<<<<< HEAD
+  <div class="container-fluid d-flex">
+    <a class="navbar-brand" href="/">Главная</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+=======
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Домой</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+>>>>>>> DesignAttempt100
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="/users">Аккаунты</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/worksheets">Анкеты</a>
+        </li>
+<<<<<<< HEAD
+      </ul>
+      <ul class="navbar-nav">
+      {% if request.user.is_authenticated %}
+=======
+        {% if request.user.is_authenticated %}
+>>>>>>> DesignAttempt100
+        <li class="nav-item">
+          <a class="nav-link" href="/worksheet/create">Создать анкету</a>
+        </li>
+        <!--<li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{request.user.username}}
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/profile">В профиль</a></li>
+            <li><a class="dropdown-item" href="/messages">Мои контакты</a></li>
+            <li><a class="dropdown-item" href="/logout">Выйти</a></li>
+          </ul>-->
+        <li class="nav-item dropdown">
+          <a role="button" class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            {{request.user.username}}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-rigth">
+            <li><a class="dropdown-item" href="/profile">В профиль</a></li>
+            <li><a class="dropdown-item" href="/messages">Мои контакты</a></li>
+            <li><a class="dropdown-item" href="/logout">Выйти</a></li>
+          </ul>
+        </li>
+        {% else %}
+<<<<<<< HEAD
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Войти</a>
+          </li>
+=======
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Войти</a>
+        </li>
+>>>>>>> DesignAttempt100
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>

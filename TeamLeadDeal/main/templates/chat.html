@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{recipient.first_name}} {{recipient.last_name}}</title>
+    <link rel="stylesheet" href="{% static 'style/bootstrap2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'style/chat.css' %}">
+</head>
+<<<<<<< HEAD
+<body onload="load_timer()">
+    <header class="fixed-top">
+            {% include 'menu.html' %}
+    </header>
+    <br><br><br>
+    <main>
+        <div class="d-flex justify-content-center">
+            <div class="border border-2 col-6 p-2 bg-light text-dark">
+             <div class="d-flex justify-content-between">
+                 <h5><a href="/id{{recipient.pk}}" class="link-body-emphasis link-offset-0">{{recipient.first_name}} {{recipient.last_name}}</a></h5>
+                 <div>
+                     {% for tag in recipient.tags.all %}
+                         <span class="badge" style="background-color: {{tag.color}};">{{tag}}</span>
+                     {% endfor %}
+                 </div>
+             </div>
+             <hr>
+             <div id="chatBuffer">
+                 <div id="chatBox">
+                    <div class="placeholder-glow">
+                        {% for author in messages_count %}
+                        {% if author.user == request.user %}
+                        <div class="d-flex justify-content-end mt-2">
+                            <span class="placeholder col-2 bg-primary rounded"></span>
+                        </div>
+                        {% else %}
+                        <div class="d-flex justify-content-start mt-2">
+                            <span class="placeholder col-2 bg-secondary rounded"></span>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                    
+                 </div>
+             </div>
+             <hr>
+             <form method="POST">
+                 {% csrf_token %}
+                 <div class="d-flex">
+                     <div class="form-floating mb-3 flex-fill">
+                         {{form.message}}
+                         <label for="id_message">Message</label>
+                     </div>
+                     <div class="m-2">
+                         <input class="btn btn-primary" id="btn" type="button" onclick="post_data()" value="Отправить" disabled>
+                     </div>
+                 </div>
+             </form>
+            </div>
+         </div>
+    </main>
+<script type="text/javascript">
+        let input = document.getElementById('id_message');
+        let OLD_DATA = '';
+
+        input.addEventListener('keypress', function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            document.getElementById('btn').click();
+        }
+        });
+
+        function setDisabled() {
+            if (id_message.value.length > 0) {
+            btn.disabled = false;
+        }
+            else {
+                btn.disabled = true;
+            }
+        }
+
+        function load_data() {
+            let xhr = new XMLHttpRequest();
+            xhr.open(method="GET", url="/messages/data/{{recipient.pk}}", async=true);
+
+            xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+
+            xhr.onload = function() {
+                let data = JSON.parse(xhr.response)["messages"];
+
+                if (data.length != OLD_DATA.length) {
+                    OLD_DATA = data;
+                    chatBuffer.removeChild(chatBox);
+
+                    let chatBoxDiv = document.createElement('div');
+                    chatBoxDiv.id = 'chatBox';
+                    document.querySelector('#chatBuffer').appendChild(chatBoxDiv);
+
+                    for (let i = 0; i < data.length; i++) {
+                        let textElem = document.createElement('div');
+                        let date = document.createElement('sub');
+                        let text = document.createElement('span');
+
+                        text.innerHTML = data[i].text;
+                        text.id = 'text'+ i;
+                        textElem.id = 'textEl' + i;
+                        date.innerHTML = String(data[i].date).slice(0, 5);
+
+                        if (data[i].author == '{{request.user}}') {
+                            textElem.className = 'd-flex justify-content-end mt-2';
+                            text.className = 'bg-primary text-white p-1 rounded';
+                        }
+                        else {
+                            textElem.className = 'd-flex justify-content-start mt-2';
+                            text.className = 'bg-secondary text-white p-1 rounded';
+                        }
+
+                        document.querySelector('#chatBox').appendChild(textElem);
+                        document.querySelector('#textEl'+i).appendChild(text);
+                        document.querySelector('#text'+i).appendChild(date);
+                    }
+                }
+            }
+            xhr.send();
+        }
+
+        function load_timer() {
+        let time = setInterval(load_data, 1000);
+        let checker = setInterval(setDisabled, 200);
+        }
+
+        function post_data() {
+            let xhr = new XMLHttpRequest();
+            xhr.open(method="POST", url="/messages/data/{{recipient.pk}}", async=true);
+
+            xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+            xhr.setRequestHeader('X-CSRFToken', "{{csrf_token}}");
+
+            let text = id_message.value;
+
+            let data = JSON.stringify({
+                "text": text,
+                "author": "{{author}}",
+                "recipient": "{{recipient}}",
+                }
+            )
+
+            xhr.send(data);
+
+            id_message.value = '';
+
+        }
+</script>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>
+=======
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Jost:wght@900&display=swap');
+
+    body {
+        font-family: 'Jost';
+        background-color: #1B2925 !important;
+        justify-content: center;
+        display: flex;
+    }
+
+    .paper {
+        border: solid #D16C23 16px;
+        display: inline-block;
+        background-color: white;
+        border-radius: 20px;
+        margin: 30px;
+        padding: 15px;
+        line-height: 0.3;
+        width: 420px;
+        position: relative;
+        margin-left: 10px;
+        margin-top: 5%;
+        box-shadow:0 0 10px 4px #00000035, inset 0 0 20px 2px #00000035;
+    }
+
+    .pin {
+        --pin-color: #406556;
+        --pin-dark: #447860;
+        --pin-light: #355756;
+
+        z-index: 5;
+        position: absolute;
+        left: 50%;
+        top: -45px;
+        width: 10px;
+        height: 20px;
+        transition: transform .3s;
+        transform: scale(1);
+
+    }
+
+    .metal {
+        position: absolute;
+        width: 5px;
+        height: 20px;
+        background: linear-gradient(to left, #808080, 40%, #eae8e8, 50%, #808080);
+        border-radius: 0 0 30% 30%;
+        transform: rotate(0deg);
+        transform-origin: bottom left;
+        top: 20px;
+        border-bottom: 1px solid #808080;
+    }
+
+    .bottom-circle {
+        position: absolute;
+        right: -8px;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background-color: var(--pin-color);
+        background: radial-gradient(circle at bottom left,
+                var(--pin-light),
+                25%,
+                var(--pin-dark),
+                90%,
+                var(--pin-color));
+    }
+
+    /* Barrel */
+    .bottom-circle::before {
+        content: "";
+        position: absolute;
+        top: 5px;
+        left: 8px;
+        width: 20px;
+        height: 15px;
+        transform: rotate(0deg);
+        transform-origin: 100% 100%;
+        border-radius: 0 0 40% 40%;
+        background: linear-gradient(to left,
+                var(--pin-dark),
+                30%,
+                var(--pin-color),
+                90%,
+                var(--pin-light));
+    }
+
+    /* Top circle */
+    .bottom-circle::after {
+        content: "";
+        position: absolute;
+        right: 6px;
+        top: -15px;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: radial-gradient(circle at left,
+                var(--pin-light),
+                30%,
+                var(--pin-color),
+                var(--pin-dark) 80%);
+    }
+
+    .contact {
+        background-color: #D16C23;
+        color: #fff;
+        font-weight: 700;
+        padding: 30px 10px;
+        position: relative;
+        top: -2rem;
+        left: -4%;
+        margin-bottom: 20px;
+        width: 103%;
+        text-align: center;
+    }
+
+    .horizontal {
+        display: flex;
+        max-width: 230px;
+        min-width: 230px;
+        justify-content: space-between;
+        flex-direction: row;
+        align-items: baseline;
+        min-height: 40px;
+        margin-bottom: 30px;
+    }
+
+    .message {
+        display: flex;
+        min-width: 410px;
+        max-width: 415px;
+    }
+
+    input {
+        background-color: #D16C23;
+        color: #2C2C2C;
+        font-weight: 700;
+        border-radius: 15px;
+        height: 30px;
+        border: #2C2C2C solid 8px;
+        transition: 0.4s;
+        font-size: medium;
+        padding: 2px;
+        text-align: center;
+    }
+
+    input:focus {
+        background-color: #fff;
+        border: #406556 solid 8px;
+    }
+    .send{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 6px;
+        padding: 10px 15px;
+        background-color: #D16C23;
+        color: #fff;
+        font-family: 'Jost';
+        font-size: 0.95rem;
+        border: 4px #bfccc8ba solid;
+        outline: 2px solid #ffffff44;
+        border-radius: 15px;
+        transition: .4s;
+        box-shadow: inset 0 0 10px 3px #00000015;
+    }
+    .send:hover{
+        box-shadow: inset 200px 0 0 0 #fff, 0 0 10px 4px #00000035;
+        transform: scale(1.05);
+        color: #2C2C2C;
+        border: #406556 solid 4px;
+        background-color: #D16C23;
+    }
+    .home {
+        position: relative;
+        left: 35%;
+        color: #1B2925;
+        font-size: 20px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.5s;
+        margin-top: 20px;
+        bottom: 1rem;
+        letter-spacing: 2px;
+        padding: 6px 20px 6px 20px;
+        background: linear-gradient(0deg, #406556, #406556) no-repeat right bottom / 0 var(--bg-h);
+        border-top-right-radius: 18px;
+        border-bottom-left-radius: 18px;
+        border-bottom-right-radius: 2px;
+        border-top-left-radius: 2px;
+        transition: background-size .35s, box-shadow .35s, color .35s;
+        --bg-h: 100%;
+    }
+
+    .home:where(:hover, :focus-visible) {
+        color: #fff;
+        background-size: 100% var(--bg-h);
+        background-position-x: left;
+        box-shadow: 0 0 8px 3px #00000033;
+        filter: brightness(1.01);
+    }
+</style>
+
+<body onload="load_data()">
+    <section class="paper">
+        <div class="pin">
+            <div class="metal"></div>
+            <div class="bottom-circle"></div>
+        </div>
+        <p class="contact">{{recipient.first_name}} {{recipient.last_name}}</p>
+        {% for message in messages %}
+        {% if message.author == author %}
+        <p>
+            {{message.message}}
+            <i><sub>{{author.first_name}} {{author.last_name}}</sub></i>
+        </p>
+        {% else %}
+        <p>
+            {{message.message}}
+            <i><sub>{{recipient.first_name}} {{recipient.last_name}}</sub></i>
+        </p>
+        {% endif %}
+        {% endfor %}
+        <section class="horizontal">
+            <form method="POST">
+                <section class="message">
+                    {% csrf_token %}
+                    {{form.as_p}}</section>
+                <input class="send" type="submit">
+                </input>
+            </form>
+        </section>
+        <a class="home" href="/">Домой</a>
+    </section>
+</body>
+
+</html>
+>>>>>>> DesignAttempt100

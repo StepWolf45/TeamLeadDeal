@@ -1,0 +1,20 @@
+.dropdown-menu{
+    right: 5% !important;
+}
+
+#btns_sort{
+    align-content: center;
+    position: sticky;
+}
+
+#btn-sort{
+    width: 45%;
+    height: 80%;
+    font-size: 0.9vw;
+}
+
+#btn-cancel{
+    width: 40%;
+    height: 80%;
+    font-size: 1vw;
+}
