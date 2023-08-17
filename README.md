@@ -1,2 +1,5 @@
-# TeamLeadDeal
-The website that helps to find a team for IT competitions, olimpiads and your own projects
+TeamLeadDeal
+
+************
+Это ветка, где сделаны ссылки на соцсети в профилях
+************
